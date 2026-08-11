@@ -1,2 +1,358 @@
-# Shabd-gaming-event-form
-SHABD Gaming Event Registration Form
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHABD Gaming Event Registration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .event-info {
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 13px;
+            color: #555;
+        }
+        
+        .event-info p {
+            margin: 5px 0;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .required {
+            color: red;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            color: #27ae60;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎮 SHABD Gaming Event</h1>
+            <p>Registration Form</p>
+        </div>
+        
+        <div class="event-info">
+            <p><strong>📅 Date:</strong> September 8th, 2026</p>
+            <p><strong>📍 Location:</strong> Jain School of Science, near Ravindra Kalakshetra</p>
+            <p><strong>📞 Contact:</strong> (123) 456-7890 | no_reply@example.com</p>
+        </div>
+        
+        <form id="registrationForm">
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">Email <span class="required">*</span></label>
+                <input type="email" id="email" name="email" required>
+                <div class="error-message" id="emailError"></div>
+            </div>
+            
+            <!-- College/USN -->
+            <div class="form-group">
+                <label for="usn">College Registration / USN <span class="required">*</span></label>
+                <input type="text" id="usn" name="usn" placeholder="e.g., 4JC21CS001" required>
+                <div class="error-message" id="usnError"></div>
+            </div>
+            
+            <!-- Name -->
+            <div class="form-group">
+                <label for="name">Name <span class="required">*</span></label>
+                <input type="text" id="name" name="name" required>
+                <div class="error-message" id="nameError"></div>
+            </div>
+            
+            <!-- Registering for -->
+            <div class="form-group">
+                <label for="registeringFor">Registering for <span class="required">*</span></label>
+                <select id="registeringFor" name="registeringFor" required>
+                    <option value="">-- Select --</option>
+                    <option value="VALORANT">VALORANT</option>
+                    <option value="CS2">CS2</option>
+                    <option value="PUBG">PUBG</option>
+                </select>
+                <div class="error-message" id="registeringForError"></div>
+            </div>
+            
+            <!-- Mode of Gameplay -->
+            <div class="form-group">
+                <label for="gameplayMode">Select the Mode of Gameplay <span class="required">*</span></label>
+                <select id="gameplayMode" name="gameplayMode" required onchange="toggleTeamFields()">
+                    <option value="">-- Select --</option>
+                    <option value="Squad">Squad</option>
+                    <option value="Duo">Duo</option>
+                    <option value="Solo">Solo</option>
+                </select>
+                <div class="error-message" id="gameplayModeError"></div>
+            </div>
+            
+            <!-- Members Name and Phone (Always shown) -->
+            <div class="form-group">
+                <label for="membersInfo">Members Name and Phone Number <span class="required">*</span></label>
+                <input type="text" id="membersInfo" name="membersInfo" placeholder="e.g., John (9876543210), Jane (9876543211)" required>
+                <div class="error-message" id="membersInfoError"></div>
+            </div>
+            
+            <!-- Team Name Fields (Conditional) -->
+            
+            <!-- Squad Name -->
+            <div class="form-group hidden" id="squadField">
+                <label for="squadName">Squad Team Name <span class="required">*</span></label>
+                <input type="text" id="squadName" name="squadName" placeholder="Enter your squad name">
+                <div class="error-message" id="squadNameError"></div>
+            </div>
+            
+            <!-- Duo Name -->
+            <div class="form-group hidden" id="duoField">
+                <label for="duoName">Duo Team Name <span class="required">*</span></label>
+                <input type="text" id="duoName" name="duoName" placeholder="Enter your duo name">
+                <div class="error-message" id="duoNameError"></div>
+            </div>
+            
+            <!-- Submit Button -->
+            <button type="submit">Submit Registration</button>
+            
+            <div class="success-message" id="successMessage">
+                ✅ Registration submitted successfully! We'll contact you soon.
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        // Toggle team name fields based on gameplay mode
+        function toggleTeamFields() {
+            const mode = document.getElementById('gameplayMode').value;
+            const squadField = document.getElementById('squadField');
+            const duoField = document.getElementById('duoField');
+            
+            // Hide all team fields first
+            squadField.classList.add('hidden');
+            duoField.classList.add('hidden');
+            
+            // Clear previous required attributes
+            document.getElementById('squadName').removeAttribute('required');
+            document.getElementById('duoName').removeAttribute('required');
+            
+            // Show relevant field and make it required
+            if (mode === 'Squad') {
+                squadField.classList.remove('hidden');
+                document.getElementById('squadName').setAttribute('required', 'required');
+            } else if (mode === 'Duo') {
+                duoField.classList.remove('hidden');
+                document.getElementById('duoName').setAttribute('required', 'required');
+            }
+            // Solo mode: no team name needed
+        }
+        
+        // Form submission
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate form
+            if (validateForm()) {
+                // Collect form data
+                const formData = {
+                    email: document.getElementById('email').value,
+                    usn: document.getElementById('usn').value,
+                    name: document.getElementById('name').value,
+                    registeringFor: document.getElementById('registeringFor').value,
+                    gameplayMode: document.getElementById('gameplayMode').value,
+                    membersInfo: document.getElementById('membersInfo').value,
+                    squadName: document.getElementById('squadName').value || 'N/A',
+                    duoName: document.getElementById('duoName').value || 'N/A'
+                };
+                
+                // Log data (you can replace this with API call to Google Sheets later)
+                console.log('Form Data:', formData);
+                
+                // Show success message
+                document.getElementById('registrationForm').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+                
+                // Optional: Reset form after 3 seconds
+                setTimeout(() => {
+                    document.getElementById('registrationForm').style.display = 'block';
+                    document.getElementById('successMessage').style.display = 'none';
+                    document.getElementById('registrationForm').reset();
+                    toggleTeamFields();
+                }, 3000);
+            }
+        });
+        
+        // Validation function
+        function validateForm() {
+            let isValid = true;
+            
+            // Clear all error messages
+            document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+            
+            // Email validation
+            const email = document.getElementById('email').value;
+            if (!email) {
+                showError('emailError', 'Email is required');
+                isValid = false;
+            } else if (!email.includes('@')) {
+                showError('emailError', 'Enter a valid email');
+                isValid = false;
+            }
+            
+            // USN validation
+            if (!document.getElementById('usn').value) {
+                showError('usnError', 'USN/Registration is required');
+                isValid = false;
+            }
+            
+            // Name validation
+            if (!document.getElementById('name').value) {
+                showError('nameError', 'Name is required');
+                isValid = false;
+            }
+            
+            // Game selection
+            if (!document.getElementById('registeringFor').value) {
+                showError('registeringForError', 'Please select a game');
+                isValid = false;
+            }
+            
+            // Gameplay mode
+            if (!document.getElementById('gameplayMode').value) {
+                showError('gameplayModeError', 'Please select gameplay mode');
+                isValid = false;
+            }
+            
+            // Members info
+            if (!document.getElementById('membersInfo').value) {
+                showError('membersInfoError', 'Members info is required');
+                isValid = false;
+            }
+            
+            // Validate team names if required
+            const mode = document.getElementById('gameplayMode').value;
+            if (mode === 'Squad' && !document.getElementById('squadName').value) {
+                showError('squadNameError', 'Squad name is required');
+                isValid = false;
+            }
+            if (mode === 'Duo' && !document.getElementById('duoName').value) {
+                showError('duoNameError', 'Duo name is required');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        function showError(elementId, message) {
+            const errorEl = document.getElementById(elementId);
+            errorEl.textContent = message;
+            errorEl.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
