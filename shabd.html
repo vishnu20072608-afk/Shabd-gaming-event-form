@@ -156,7 +156,7 @@
             <p><strong>📞 Contact:</strong> (123) 456-7890 | no_reply@example.com</p>
         </div>
         
-        <form id="registrationForm">
+        <form id="registrationForm" action="https://formspree.io/f/xyzpqrst" method="POST">
             <!-- Email -->
             <div class="form-group">
                 <label for="email">Email <span class="required">*</span></label>
@@ -233,8 +233,6 @@
     </div>
     
     <script>
-        const WEB_APP_URL = 'https://script.googleapis.com/macros/s/AKfycbx507BgMrW18QgOPUpyJAQyYu2z6wJa7YZD5Rx6LR8f0d7ZAuDilADKCrO3msEsNTHf/exec';
-        
         // Toggle team name fields based on gameplay mode
         function toggleTeamFields() {
             const mode = document.getElementById('gameplayMode').value;
@@ -259,62 +257,10 @@
             }
         }
         
-        // Form submission
+        // Form submission with validation
         document.getElementById('registrationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Validate form
-            if (validateForm()) {
-                // Disable submit button
-                const submitBtn = document.getElementById('submitBtn');
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Submitting...';
-                
-                // Collect form data
-                const formData = {
-                    email: document.getElementById('email').value,
-                    usn: document.getElementById('usn').value,
-                    name: document.getElementById('name').value,
-                    registeringFor: document.getElementById('registeringFor').value,
-                    gameplayMode: document.getElementById('gameplayMode').value,
-                    membersInfo: document.getElementById('membersInfo').value,
-                    squadName: document.getElementById('squadName').value || 'N/A',
-                    duoName: document.getElementById('duoName').value || 'N/A'
-                };
-                
-                // Send to Google Sheets via Apps Script
-                fetch(WEB_APP_URL, {
-                    method: 'POST',
-                    body: JSON.stringify(formData)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Response:', data);
-                    
-                    if (data.success) {
-                        // Show success message
-                        document.getElementById('registrationForm').style.display = 'none';
-                        document.getElementById('successMessage').style.display = 'block';
-                        
-                        // Reset form after 3 seconds
-                        setTimeout(() => {
-                            document.getElementById('registrationForm').style.display = 'block';
-                            document.getElementById('successMessage').style.display = 'none';
-                            document.getElementById('registrationForm').reset();
-                            submitBtn.disabled = false;
-                            submitBtn.textContent = 'Submit Registration';
-                            toggleTeamFields();
-                        }, 3000);
-                    } else {
-                        throw new Error('Server returned error');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Error submitting form. Please try again.');
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Submit Registration';
-                });
+            if (!validateForm()) {
+                e.preventDefault();
             }
         });
         
