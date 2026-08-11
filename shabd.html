@@ -233,7 +233,7 @@
     </div>
     
     <script>
-        const WEB_APP_URL = 'https://script.googleapis.com/macros/s/AKfycbymGaz2I_Q_IMbVg9hn66g4TmFMTVzvtb6IfBM0SW5yJMVzw0Mzd52kVXWb1Yn8TwTV/exec';
+        const WEB_APP_URL = 'https://script.googleapis.com/macros/s/AKfycbx507BgMrW18QgOPUpyJAQyYu2z6wJa7YZD5Rx6LR8f0d7ZAuDilADKCrO3msEsNTHf/exec';
         
         // Toggle team name fields based on gameplay mode
         function toggleTeamFields() {
@@ -285,10 +285,7 @@
                 // Send to Google Sheets via Apps Script
                 fetch(WEB_APP_URL, {
                     method: 'POST',
-                    body: JSON.stringify(formData),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
+                    body: JSON.stringify(formData)
                 })
                 .then(response => response.json())
                 .then(data => {
